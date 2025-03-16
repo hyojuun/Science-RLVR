@@ -30,12 +30,12 @@ COPY . .
 SHELL ["/bin/bash", "-c"]
 
 # 7-2. uv를 이용해 가상환경 생성 후 pip 업데이트 (한 RUN 명령어 내에서 실행)
-RUN uv venv openr1 --python 3.11 && source openr1/bin/activate && uv pip install --upgrade pip
+RUN uv venv /venv --python 3.11 && source /venv/bin/activate && uv pip install --upgrade pip
 
 # 8. uv를 통해 open‑r1의 dependencies 설치, 가상환경은 한 줄에서만 작동하므로 모든 줄에서 작동되게 환경 설정
 ENV GIT_LFS_SKIP_SMUDGE=1
-ENV VIRTUAL_ENV=/app/openr1
-ENV PATH="/app/openr1/bin:$PATH"
+ENV VIRTUAL_ENV=/venv
+ENV PATH="/venv/bin:$PATH"
 ENV PIP_ROOT_USER_ACTION=ignore
 
 RUN uv pip install -e ".[dev]"
