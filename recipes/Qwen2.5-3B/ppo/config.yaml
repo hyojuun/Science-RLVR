@@ -1,0 +1,43 @@
+# Model arguments
+model_name_or_path: Qwen/Qwen2.5-3B
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+
+# Data training arguments
+dataset_path: /data/train.csv
+system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer. Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer>"
+
+# PPO trainer config
+bf16: true
+mini_batch_size: 8
+batch_size: 32
+ppo_epochs: 4
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+hub_model_id: Qwen2.5-3B-Open-R1-PPO
+hub_strategy: every_save
+learning_rate: 2.0e-05
+log_level: info
+logging_first_step: true
+logging_steps: 1
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_prompt_length: 512
+max_completion_length: 1024
+max_steps: 1000
+save_steps: 100
+output_dir: data/Qwen2.5-3B-Open-R1-PPO
+overwrite_output_dir: true
+push_to_hub: true
+report_to:
+- wandb
+reward_funcs:
+- accuracy
+- format
+save_strategy: "steps"
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1
