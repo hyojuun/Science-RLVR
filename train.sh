@@ -9,6 +9,12 @@ accelerate launch --config_file=recipes/accelerate_configs/zero3.yaml src/open_r
     --max_prompt_length 512 \
     --max_completion_length 1024 \
     --per_device_train_batch_size 16 \
+    --mini_batch_size 8 \
+    --batch_size 32 \
+    --ppo_epochs 4 \
+    --use_vllm True \
+    --vllm_device auto \
+    --vllm_gpu_memory_utilization 0.7 \
     --gradient_checkpointing \
     --bf16 \
     --output_dir data/Qwen2.5-3B-Open-R1-PPO
